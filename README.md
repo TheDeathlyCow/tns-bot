@@ -25,4 +25,4 @@ To see the QOTD leaderboard, use the command `.tns qotdleaderboard`.
 To see your own personal QOTD points, use the command `.tns points`. 
 
 ## The Game
-To start *The Game* in a channel, use the command `.tns thegame [#optionl-channel]`. This will start *The Game* in the specified channel (or the current channel if no channel is specified). 
+To start *The Game* in a channel, use the command `.tns thegame [#optionl-channel]`. This will start *The Game* in the specified channel (or the current channel if no channel is specified). *The Game* will only stop when the bot goes offline. 
