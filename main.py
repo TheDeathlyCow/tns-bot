@@ -25,20 +25,32 @@ async def on_message(message):
 
 @bot.command(name='discussion')
 @commands.has_role('QOTD Master')
-async def set_discussion_channel(ctx):
+async def set_discussion_channel(ctx, channel: discord.TextChannel=None):
     guild_id = ctx.message.guild.id
-    channel_id = ctx.message.channel.id
+    desc = ""
+    if channel is None:
+        desc = "Set this channel to be the new discussion channel!"
+        channel = ctx.message.channel
+    else:
+        desc = f"Set #{channel.name} to be the new discussion channel!"
+    channel_id = channel.id
     DATA.set_discussion_channel(guild_id, channel_id)
-    embed = discord.Embed(title="QOTD Bot", description="Set this channel to be the new discussion channel!", color=0x32cd32)
+    embed = discord.Embed(title="QOTD Bot", description=desc, color=0x32cd32)
     await ctx.send(embed=embed)
 
 @bot.command(name='suggestions')
 @commands.has_role('QOTD Master')
-async def set_suggestion_channel(ctx):
+async def set_suggestion_channel(ctx, channel: discord.TextChannel=None):
     guild_id = ctx.message.guild.id
-    channel_id = ctx.message.channel.id
+    desc = ""
+    if channel is None:
+        desc = "Set this channel to be the new suggestions channel!"
+        channel = ctx.message.channel
+    else:
+        desc = f"Set #{channel.name} to be the new suggestions channel!"
+    channel_id = channel.id
     DATA.set_suggestion_channel(guild_id, channel_id)
-    embed = discord.Embed(title="QOTD Bot", description="Set this channel to be the new suggestions channel!", color=0x32cd32)
+    embed = discord.Embed(title="QOTD Bot", description=desc, color=0x32cd32)
     await ctx.send(embed=embed)
 
 @bot.command(name='pick')
@@ -79,7 +91,7 @@ async def get_points(ctx):
     embed = discord.Embed(title='QOTD Bot', description=reply, color=0x32cd32)
     await ctx.send(embed=embed)
 
-@bot.command(name='leaderboard')
+@bot.command(name='qotdleaderboard')
 async def get_leaderboard(ctx):
     guild_id = ctx.message.guild.id
     users = DATA.get_users(guild_id)
@@ -93,7 +105,7 @@ async def get_leaderboard(ctx):
     await ctx.send(embed=embed)
 
 @bot.command(pass_context=True, name="thegame")
-async def the_game(ctx, channel: discord.channel=None):
+async def the_game(ctx, channel: discord.TextChannel=None):
     min_time = 15*60
     max_time = 720*60
     if channel is None:
